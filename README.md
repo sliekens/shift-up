@@ -33,6 +33,10 @@ Message:
 
 My best guess is that you reached some kind of hourly (daily?) limit. Come back later.
 
+# Planned
+- make it a real CLI app
+- split the login flow and code redemption flow into separate commands
+- silent mode: pass code as an argument, don't show any prompts
 
 # Disclaimer
 I don't work for Gearbox Software.
