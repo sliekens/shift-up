@@ -20,6 +20,9 @@ let request = rp;
     let jar = request.jar(cookieStore);
     request = request.defaults({
         jar,
+        headers: {
+            'dnt': '1'
+        },
         followRedirect: resp => {
             if (resp.headers.location != null) {
                 console.log('GET', resp.headers.location);
@@ -127,6 +130,10 @@ function redeem(formData: any): Promise<string> {
     }).then(($: CheerioStatic) => {
         if ($('div.notice').length !== 0) {
             return $('div.notice').text().trim();
+        } else if ($('#check_redemption_status').length !== 0) {
+            // tslint:disable-next-line:no-multiline-string
+            return `Your code was accepted but no status was returned.
+Wait a few moments then check the rewards page: https://shift.gearboxsoftware.com/rewards`;
         } else {
             return $.html();
         }
