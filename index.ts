@@ -106,12 +106,16 @@ function getRedemptionForm(code: string): Promise<any> {
             });
         })
         .then(($: CheerioStatic) => {
-            return {
-                'authenticity_token': $('input[name=authenticity_token]').val(),
-                'archway_code_redemption[code]': $('#archway_code_redemption_code').val(),
-                'archway_code_redemption[check]': $('#archway_code_redemption_check').val(),
-                'archway_code_redemption[service]': $('#archway_code_redemption_service').val()
-            };
+            if ($('form.new_archway_code_redemption').length === 0) {
+                return Promise.reject($.root().text().trim());
+            } else {
+                return Promise.resolve({
+                    'authenticity_token': $('input[name=authenticity_token]').val(),
+                    'archway_code_redemption[code]': $('#archway_code_redemption_code').val(),
+                    'archway_code_redemption[check]': $('#archway_code_redemption_check').val(),
+                    'archway_code_redemption[service]': $('#archway_code_redemption_service').val()
+                });
+            }
         });
 }
 
