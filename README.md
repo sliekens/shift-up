@@ -22,7 +22,7 @@ This command-line tool lets you redeem codes from the convenience of your comput
 
 If all went well, you should see the words "Done in 30s" (or similar).
 
-![Example](assets/success.png)
+![Example](assets/success.PNG)
 
 Check the website to confirm that it worked.  
 https://shift.gearboxsoftware.com/rewards
@@ -36,4 +36,5 @@ My best guess is that you reached some kind of hourly (daily?) limit. Come back 
 
 # Disclaimer
 I don't work for Gearbox Software.
+
 © 2018 Gearbox Software, LLC. SHiFT is trademark of Gearbox Software, LLC.
