@@ -20,6 +20,12 @@ let request = rp;
     let jar = request.jar(cookieStore);
     request = request.defaults({
         jar,
+        followRedirect: resp => {
+            if (resp.headers.location != null) {
+                console.log('GET', resp.headers.location);
+            }
+            return true;
+        },
         followAllRedirects: true,
         transform: (body: any) => cheerio.load(body)
     });
@@ -75,14 +81,13 @@ function login(): Promise<any> {
     }))
         .then(credentials => getToken(baseUrl + 'home').then(token => ({ ...credentials, authenticity_token: token })))
         .then((credentials: any) => {
+            console.log('POST', baseUrl + 'sessions');
             return request.post({
                 uri: baseUrl + 'sessions',
                 formData: {
-                    'utf8': '✓',
                     'authenticity_token': credentials.authenticity_token,
                     'user[email]': credentials.email,
-                    'user[password]': credentials.password,
-                    'commit': 'Sign in'
+                    'user[password]': credentials.password
                 }
             });
         });
@@ -90,30 +95,38 @@ function login(): Promise<any> {
 
 function getRedemptionForm(code: string): Promise<any> {
     return getToken(baseUrl + 'code_redemptions/new')
-        .then(token => request.get({
-            uri: `${baseUrl}entitlement_offer_codes?code=${code}`,
-            headers: {
-                'x-csrf-token': token,
-                'x-requested-with': 'XMLHttpRequest'
-            }
-        }))
+        .then(token => {
+            console.log('GET', `${baseUrl}entitlement_offer_codes?code=${code}`);
+            return request.get({
+                uri: `${baseUrl}entitlement_offer_codes?code=${code}`,
+                headers: {
+                    'x-csrf-token': token,
+                    'x-requested-with': 'XMLHttpRequest'
+                }
+            });
+        })
         .then(($: CheerioStatic) => {
             return {
-                'utf8': '✓',
                 'authenticity_token': $('input[name=authenticity_token]').val(),
                 'archway_code_redemption[code]': $('#archway_code_redemption_code').val(),
                 'archway_code_redemption[check]': $('#archway_code_redemption_check').val(),
-                'archway_code_redemption[service]': $('#archway_code_redemption_service').val(),
-                'commit': 'Redeem for Xbox Live'
+                'archway_code_redemption[service]': $('#archway_code_redemption_service').val()
             };
         });
 }
 
 function redeem(formData: any): Promise<string> {
+    console.log('POST', baseUrl + 'code_redemptions');
     return request.post({
         uri: baseUrl + 'code_redemptions',
         formData
-    }).then(($: CheerioStatic) => $('div.notice').text());
+    }).then(($: CheerioStatic) => {
+        if ($('div.notice').length !== 0) {
+            return $('div.notice').text().trim();
+        } else {
+            return $.html();
+        }
+    });
 }
 
 function getAllCookies(store: Store): Promise<Cookie[]> {
@@ -157,9 +170,10 @@ function isAuthenticated(store: Store): Promise<boolean> {
 }
 
 function getToken(url: string): Promise<string> {
+    console.log('GET', url);
     return request
         .get({
-            uri: baseUrl + 'home'
+            uri: url
         })
         .then(($: CheerioStatic) => $('meta[name=csrf-token]').attr('content'));
 }

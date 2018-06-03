@@ -20,9 +20,9 @@ This command-line tool lets you redeem codes from the convenience of your comput
     - I will NEVER try to steal your credentials
 4. Enter the code that you would like to redeem
 
-If all went well, you should see the words "Done in 30s" (or similar).
+If all went well, you should see the words "Your code was successfully redeemed".
 
-![Example](assets/success.PNG)
+![Example](assets/output.png)
 
 Check the website to confirm that it worked.  
 https://shift.gearboxsoftware.com/rewards
@@ -43,7 +43,7 @@ Message:
 
 You probably entered a bad code.
 
-# Planned
+# Planned features
 - make it a real CLI app
 - split the login flow and code redemption flow into separate commands
 - silent mode: pass code as an argument, don't show any prompts
