@@ -33,6 +33,11 @@ Message:
 
 My best guess is that you reached some kind of hourly (daily?) limit. Come back later.
 
+Message:
+> Internal Server Error
+
+Something went wrong and it's not your fault. But let's keep it honest, you probably entered a bad code.
+
 # Planned
 - make it a real CLI app
 - split the login flow and code redemption flow into separate commands
