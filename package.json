@@ -1,10 +1,11 @@
 {
   "name": "shift-up",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "app.js",
   "license": "MIT",
   "dependencies": {
     "cheerio": "^1.0.0-rc.2",
+    "commander": "^2.15.1",
     "prompt": "^1.0.0",
     "request": "^2.87.0",
     "request-promise-native": "^1.0.5",
@@ -13,7 +14,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "start": "ts-node index.ts"
+    "start": "ts-node app.ts"
   },
   "devDependencies": {
     "@types/cheerio": "^0.22.7",

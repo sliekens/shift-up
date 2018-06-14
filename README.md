@@ -11,14 +11,14 @@ This command-line tool lets you redeem codes from the convenience of your comput
 # Instructions
 1. install dependencies
     - `yarn install`
-2. start the app
-    - `yarn start`
-3. (first time only) enter your Gearbox SHiFT e-mail and password
+2. (first time only) enter your Gearbox SHiFT e-mail and password
+    - `yarn start login <email> <password>`
     - your credentials are transmitted over a secure connection to Gearbox **only**
-    - an authentication cookie will be stored inside `cookies.json`
+    - an authentication cookie will be stored inside `secrets/<email>.json`
        - this file contains your login session, do not share this file with anybody! 
     - I will NEVER try to steal your credentials
-4. Enter the code that you would like to redeem
+3. Enter the code that you would like to redeem
+    - `yarn start redeem <email> <code>`
 
 If all went well, you should see the words "Your code was successfully redeemed".
 
@@ -44,9 +44,10 @@ Message:
 You probably entered a bad code.
 
 # Planned features
-- make it a real CLI app
-- split the login flow and code redemption flow into separate commands
-- silent mode: pass code as an argument, don't show any prompts
+- better status checks for async redemption forms
+- interactive mode: prompt for credentials and codes
+- silent mode: don't log anything to stdout
+- error handling (failed logins)
 
 # Disclaimer
 I don't work for Gearbox Software.

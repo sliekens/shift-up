@@ -15,6 +15,10 @@
     "newline-before-return": false,
     "missing-jsdoc": false,
     "import-name": false,
-    "no-unnecessary-callback-wrapper": false
+    "export-name": false,
+    "no-unnecessary-callback-wrapper": false,
+    "member-access": false,
+    "no-parameter-properties": false,
+    "no-relative-imports": false
   }
 }
