@@ -19,6 +19,7 @@
     "no-unnecessary-callback-wrapper": false,
     "member-access": false,
     "no-parameter-properties": false,
-    "no-relative-imports": false
+    "no-relative-imports": false,
+    "no-non-null-assertion": false
   }
 }

@@ -1,5 +1,5 @@
 import cheerio from 'cheerio';
-import { RequestAPI, RequiredUriUrl } from 'request';
+import { RequestAPI, RequiredUriUrl, Response } from 'request';
 import { RequestPromise, RequestPromiseOptions } from 'request-promise-native';
 
 export class WebClient {
@@ -61,22 +61,70 @@ export class WebClient {
             });
     }
 
-    redeem(formData: any): Promise<string> {
+    redeem(formData: any): Promise<string | null> {
         console.log('POST', this.baseUrl + 'code_redemptions');
-        return this.http.post({
-            uri: this.baseUrl + 'code_redemptions',
-            formData,
-            transform: body => cheerio.load(body)
-        }).then(($: CheerioStatic) => {
-            if ($('div.notice').length !== 0) {
-                return $('div.notice').text().trim();
-            } else if ($('#check_redemption_status').length !== 0) {
-                // tslint:disable-next-line:no-multiline-string
-                return `Your code was accepted but no status was returned.
-Wait a few moments then check the rewards page: https://shift.gearboxsoftware.com/rewards`;
-            } else {
-                return $.html();
-            }
-        });
+        return this.http
+            .post({
+                uri: this.baseUrl + 'code_redemptions',
+                formData,
+                resolveWithFullResponse: true,
+                followRedirect: false
+            })
+            .then((response: Response) => this.checkRedemptionStatus(response))
+            .then(redirect => {
+                console.log('GET', this.baseUrl + redirect);
+                return this.http.get({
+                    uri: this.baseUrl + redirect
+                });
+            })
+            .then(body => this.getAlert(body));
+    }
+
+    checkRedemptionStatus(response: Response): Promise<string> {
+        if (response.statusCode === 302) {
+            return Promise.resolve(response.headers.location!);
+        }
+
+        const alert = this.getAlert(response.body);
+        if (alert != null) {
+            return Promise.reject(alert);
+        }
+
+        const { status, url } = this.getStatus(response.body);
+        if (status != null) {
+            console.log(status);
+            return this.wait(500)
+                .then(() => this.http.get({
+                    uri: this.baseUrl + url,
+                    resolveWithFullResponse: true,
+                    followRedirect: false
+                }))
+                .then(r2 => this.checkRedemptionStatus(r2));
+        }
+        return Promise.reject(response.body);
+    }
+
+    private wait(n: number): Promise<void> {
+        return new Promise(resolve => setTimeout(resolve, n));
+    }
+
+    private getAlert(body: any): string | null {
+        const $ = cheerio.load(body);
+        if ($('div.notice').length === 0) {
+            return null;
+        }
+        return $('div.notice').text().trim();
+    }
+
+    private getStatus(body: any): { status?: string; url?: string } {
+        const $ = cheerio.load(body);
+        if ($('div#check_redemption_status').length === 0) {
+            return {};
+        }
+        const div = $('div#check_redemption_status');
+        return {
+            status: div.text().trim(),
+            url: div.data('url')
+        };
     }
 }

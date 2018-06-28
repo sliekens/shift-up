@@ -44,7 +44,6 @@ Message:
 You probably entered a bad code.
 
 # Planned features
-- better status checks for async redemption forms
 - interactive mode: prompt for credentials and codes
 - silent mode: don't log anything to stdout
 - error handling (failed logins)
