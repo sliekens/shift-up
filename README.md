@@ -25,15 +25,15 @@ This command-line tool lets you redeem codes from the convenience of your comput
    - Redeem one code: `yarn start redeem <email> <code>`
    - Redeem a list of codes: `yarn start redeem <email> <nameOfCodeFile.txt>` (include the `.txt`)
 
-     - Premade shiftcode files:
-       - Golden key codes: `keyCodes.txt`
-       - Axton codes: `axtonCodes.txt`
-       - Maya codes: `mayaCodes.txt`
-       - Gaige codes: `gaigeCodes.txt`
-       - Krieg codes: `kriegCodes.txt`
-       - Salvador codes: `salvadorCodes.txt`
-       - Zero codes: `zeroCodes.txt`
-       - Universal/misc codes: `miscCodes.txt`
+     - Premade shiftcode files(Xbox Codes):
+       - Golden key codes: `xbox/keyCodes.txt`
+       - Axton codes: `xbox/axtonCodes.txt`
+       - Maya codes: `xbox/mayaCodes.txt`
+       - Gaige codes: `xbox/gaigeCodes.txt`
+       - Krieg codes: `xbox/kriegCodes.txt`
+       - Salvador codes: `xbox/salvadorCodes.txt`
+       - Zero codes: `xbox/zeroCodes.txt`
+       - Universal/misc codes: `xbox/miscCodes.txt`
 
    - To create your own list of codes create a `.txt` file in the `/shiftcodes` folder. Enter one code on each line.
 

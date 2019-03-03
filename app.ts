@@ -39,7 +39,7 @@ commander.command("login <user> <password>").action((u, p) => {
 })
 
 commander.command("redeem <user> <code>").action((u, c) => {
-    let readCodes = () => {
+    const readCodes = () => {
         if (c.endsWith(".txt")) {
             return fs
                 .readFileSync(`${codesDir}/${c}`, "utf-8")
