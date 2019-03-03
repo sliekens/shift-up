@@ -27,8 +27,13 @@ This command-line tool lets you redeem codes from the convenience of your comput
 
      - Premade shiftcode files:
        - Golden key codes: `keyCodes.txt`
+       - Axton codes: `axtonCodes.txt`
        - Maya codes: `mayaCodes.txt`
        - Gaige codes: `gaigeCodes.txt`
+       - Krieg codes: `kriegCodes.txt`
+       - Salvador codes: `salvadorCodes.txt`
+       - Zero codes: `zeroCodes.txt`
+       - Universal/misc codes: `miscCodes.txt`
 
    - To create your own list of codes create a `.txt` file in the `/shiftcodes` folder. Enter one code on each line.
 
