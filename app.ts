@@ -39,14 +39,14 @@ commander.command("login <user> <password>").action((u, p) => {
 })
 
 commander.command("redeem <user> <code>").action((u, c) => {
-    const readCodes = () => {
+    let readCodes = () => {
         if (c.endsWith(".txt")) {
             return fs
                 .readFileSync(`${codesDir}/${c}`, "utf-8")
                 .split("\n")
                 .filter(Boolean)
         } else {
-            return c
+            return [c]
         }
     }
 
@@ -79,6 +79,7 @@ commander.command("redeem <user> <code>").action((u, c) => {
         )
     ;(async function redeemCodes() {
         for (const c of codes) {
+            console.log(`Attempting to redeem code: ${c}`)
             await processCode(c)
             await wait(10000) //attempt to avoid 429 and 504 server codes
         }
