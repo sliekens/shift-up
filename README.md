@@ -9,16 +9,18 @@ This command-line tool lets you redeem codes from the convenience of your comput
 - A Gearbox SHiFT account (https://shift.gearboxsoftware.com/)
 
 # Instructions
-1. install dependencies
+1. install SHiFT-up
     - `npm install`
+    - `npm run build`
+    - `npm link`
 2. (first time only) enter your Gearbox SHiFT e-mail and password
-    - `npm start login <email> <password>`
+    - `shiftup login <email> <password>`
     - your credentials are transmitted over a secure connection to Gearbox **only**
     - an authentication cookie will be stored inside `secrets/<email>.json`
        - this file contains your login session, do not share this file with anybody! 
     - I will NEVER try to steal your credentials
 3. Enter the code that you would like to redeem
-    - `npm start redeem <email> <code>`
+    - `shiftup redeem <email> <code>`
 
 If all went well, you should see the words "Your code was successfully redeemed".
 

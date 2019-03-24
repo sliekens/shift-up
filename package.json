@@ -12,6 +12,9 @@
     "tough-cookie": "^2.3.4",
     "tough-cookie-store": "^0.0.6"
   },
+  "bin": {
+    "shiftup": "./tsc-out/app.js"
+  },
   "scripts": {
     "build": "tsc",
     "start": "ts-node app.ts"

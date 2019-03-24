@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import commander, { Command } from 'commander';
 import { promises as fs } from 'fs';
 import { Response } from 'request';
