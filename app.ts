@@ -38,6 +38,7 @@ commander.command('login <user> <password>')
                 }
             })
             .then(() => cookieMonster.showCookies())
+            .then(cookies => cookies.filter(cookie => cookie.key === 'si'))
             .then(cookies => cookieMonster.buryCookies(cookies, `./secrets/${u}.json`));
     });
 
