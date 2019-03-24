@@ -4,21 +4,21 @@ Redeeming SHiFT codes in-game is annoying, especially on consoles where you have
 This command-line tool lets you redeem codes from the convenience of your computer, without having to launch a game.
 
 # Prerequisites
-- Node 8+
-- Yarn 
+- Node 10+
+- NPM or Yarn
 - A Gearbox SHiFT account (https://shift.gearboxsoftware.com/)
 
 # Instructions
 1. install dependencies
-    - `yarn install`
+    - `npm install`
 2. (first time only) enter your Gearbox SHiFT e-mail and password
-    - `yarn start login <email> <password>`
+    - `npm start login <email> <password>`
     - your credentials are transmitted over a secure connection to Gearbox **only**
     - an authentication cookie will be stored inside `secrets/<email>.json`
        - this file contains your login session, do not share this file with anybody! 
     - I will NEVER try to steal your credentials
 3. Enter the code that you would like to redeem
-    - `yarn start redeem <email> <code>`
+    - `npm start redeem <email> <code>`
 
 If all went well, you should see the words "Your code was successfully redeemed".
 
