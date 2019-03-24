@@ -57,13 +57,7 @@ commander.command('redeem <user> <code')
             .then(() => webClient.getRedemptionForm(c))
             .then(formData => webClient.redeem(formData))
             .then(result => console.log(result))
-            .catch((err: Response) => {
-                if (err && err.statusCode === 500) {
-                    console.error(err.statusMessage || 'Internal Server Error');
-                } else {
-                    console.error(err);
-                }
-            });
+            .catch((err: Response) => console.error(err.message));
     });
 
 commander.parse(process.argv);

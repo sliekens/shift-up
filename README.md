@@ -1,14 +1,17 @@
 # SHiFT-up
+
 Redeeming SHiFT codes in-game is annoying, especially on consoles where you have to use the on-screen keyboard instead of a physical keyboard.
 
 This command-line tool lets you redeem codes from the convenience of your computer, without having to launch a game.
 
-# Prerequisites
+## Prerequisites
+
 - Node 10+
 - NPM or Yarn
 - A Gearbox SHiFT account (https://shift.gearboxsoftware.com/)
 
-# Instructions
+## Instructions
+
 1. install SHiFT-up
     - `npm install`
     - `npm run build`
@@ -29,28 +32,29 @@ If all went well, you should see the words "Your code was successfully redeemed"
 Check the website to confirm that it worked.  
 https://shift.gearboxsoftware.com/rewards
 
-# Known issues
+## Known issues
+
 Message:
  > To continue to redeem SHiFT codes, please launch a SHiFT-enabled title first!
 
 My best guess is that you reached some kind of hourly (daily?) limit. Come back later.
 
 Message:
-> Internal Server Error
+> 500 - ""
 
-Something went wrong and it's not your fault. But let's keep it honest, you probably entered a bad code.
-
-Message:
+or
 > StatusCodeError: 412 - "{}"
 
 You probably entered a bad code.
 
-# Planned features
+## Planned features
+
 - interactive mode: prompt for credentials and codes
 - silent mode: don't log anything to stdout
 - error handling (failed logins)
 
-# Disclaimer
+## Disclaimer
+
 I don't work for Gearbox Software.
 
 © 2018 Gearbox Software, LLC. SHiFT is trademark of Gearbox Software, LLC.
