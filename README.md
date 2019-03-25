@@ -7,6 +7,7 @@ This command-line tool lets you redeem codes from the convenience of your comput
 # Prerequisites
 
 - Node 8+
+- Typescript `npm install -g typescript`
 - Yarn
 - A Gearbox SHiFT account (https://shift.gearboxsoftware.com/)
 
