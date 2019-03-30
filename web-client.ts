@@ -1,6 +1,7 @@
 import cheerio from 'cheerio';
 import { RequestAPI, RequiredUriUrl, Response } from 'request';
 import { RequestPromise, RequestPromiseOptions } from 'request-promise-native';
+import { ParseError } from './parse-error';
 
 const resources = {
     loginForm: '/home',
@@ -110,19 +111,16 @@ export class WebClient {
         }
 
         const { status, url } = this.getStatus(response.body);
-        if (status != null) {
-            console.log(status);
-            await this.wait(500);
-            let nextResponse = await this.http.get({
-                uri: this.baseUrl + url,
-                resolveWithFullResponse: true,
-                followRedirect: false
-            });
+        console.log(status);
+        await this.wait(500);
+        let nextResponse = await this.http.get({
+            uri: this.baseUrl + url,
+            resolveWithFullResponse: true,
+            followRedirect: false
+        });
 
-            // retry recursively
-            return this.checkRedemptionStatus(nextResponse);
-        }
-        return Promise.reject(response.body);
+        // retry recursively
+        return this.checkRedemptionStatus(nextResponse);
     }
 
     private wait(ms: number): Promise<void> {
@@ -137,12 +135,12 @@ export class WebClient {
         return $('div.notice').text().trim();
     }
 
-    private getStatus(body: any): { status?: string; url?: string } {
+    private getStatus(body: any): { status: string; url: string } {
         const $ = cheerio.load(body);
-        if ($('div#check_redemption_status').length === 0) {
-            return {};
-        }
         const div = $('div#check_redemption_status');
+        if (div.length === 0) {
+            throw new ParseError('Could not find div#check_redemption_status.');
+        }
         return {
             status: div.text().trim(),
             url: div.data('url')
